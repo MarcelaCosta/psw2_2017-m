@@ -1,5 +1,7 @@
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /*
@@ -15,10 +17,15 @@ import javax.persistence.Id;
 
 @Entity
 public class Pincel {
+   @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   private int Idindentificador;
+    
+    
     private String cor;
     private String fabricante;
     
-    @Id
+    
     private int num_serie;
 
     public String getCor() {

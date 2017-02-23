@@ -6,17 +6,20 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
  * @author ra21553636
  */
-public class carregapincel extends HttpServlet {
+public class consulta extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,29 +35,36 @@ public class carregapincel extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           int idPincel = 0;
-           
-          
-           
-          Pincel pincel0;
-          
-          Session sessao = HibernateUtil
-                       .getSessionFactory()
-                       .openSession();
-                  
-          pincel0=(Pincel)sessao.get(Pincel.class,idPincel); 
-            String pincel = null;
-                  
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet consulta</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet consulta at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
             
-          out.println("não carrega o pincel" + pincel);
-   
-          out.println("dados do pincel 0;");
-          out.println("cor"+pincel0.getCor());  
-          out.println("fabricante "+pincel0.getFabricante());
-          out.println("num serie"+ pincel0.getNum_serie());
-        }
+            
+            
+           Session s = HibernateUtil
+                  .getSessionFactory()
+                  .openSession();
+            Criteria criteria;
+            
+            Criteria Criteria = criteria = s.createCriteria(Pincel.class);
+          criteria.add(Restrictions.eq("Cor", "Azul"));   
+            
+          List<Pincel> result = criteria.list();
+         
+          out.println("<br>pinceis encotrados;<br>");
           
-        
+          
+          s.close();
+          
+          
+          
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
